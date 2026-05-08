@@ -164,7 +164,65 @@ Se realizaron estas correcciones:
 
 Después de las correcciones, el proyecto compila y las pruebas pasan correctamente.
 
-Evidencia ejecutada:
+#### 7.1) Creación de pruebas unitarias exhaustivas
+
+Se creó un conjunto completo de **36 pruebas unitarias** en la clase `PaymentSystemTest.java` que cubre:
+
+**Área 1: Factory de Tarjeta de Crédito (6 pruebas)**
+- Test 1.1: Crear y procesar pago con tarjeta VISA
+- Test 1.2: Crear y procesar pago con tarjeta MASTERCARD
+- Test 1.3: Validación fallida con CVV inválido
+- Test 1.4: Validación fallida con fecha de expiración inválida
+- Test 1.5: Obtener tipo de tarjeta AMEX
+- Test 1.6: Enmascarar número de tarjeta para seguridad
+
+**Área 2: Factory de PayPal (4 pruebas)**
+- Test 2.1: Crear y procesar pago con PayPal
+- Test 2.2: Validación fallida con email inválido
+- Test 2.3: Validación fallida con token corto
+- Test 2.4: Obtener email de PayPal
+
+**Área 3: Factory de Criptomoneda (4 pruebas)**
+- Test 3.1: Crear y procesar pago con criptomoneda
+- Test 3.2: Validación fallida con dirección corta
+- Test 3.3: Validación fallida con saldo insuficiente
+- Test 3.4: Obtener tipo de criptomoneda
+
+**Área 4: Observer Pattern (3 pruebas)**
+- Test 4.1: Observador notificado en pago exitoso
+- Test 4.2: Observador notificado en pago fallido
+- Test 4.3: Agregar y remover observadores
+
+**Área 5: PaymentMethod Base (6 pruebas)**
+- Test 5.1: Generar transaction ID
+- Test 5.2: Establecer y obtener monto de pago
+- Test 5.3: Establecer y obtener Customer ID
+- Test 5.4: Establecer y obtener descripción
+- Test 5.5: Obtener estado de pago
+- Test 5.6: Obtener timestamp de pago
+
+**Área 6: Inventory (4 pruebas)**
+- Test 6.1: Descontar producto del inventario
+- Test 6.2: Obtener producto del inventario
+- Test 6.3: Obtener stock de producto
+- Test 6.4: Intentar descontar más de lo disponible
+
+**Área 7: Facturation (4 pruebas)**
+- Test 7.1: Calcular impuesto
+- Test 7.2: Calcular total con impuesto
+- Test 7.3: Obtener empresa de facturación
+- Test 7.4: Obtener tasa de impuestos
+
+**Área 8: Integration Tests (3 pruebas)**
+- Test 8.1: Flujo completo de pago con tarjeta de crédito
+- Test 8.2: Flujo completo de pago con PayPal
+- Test 8.3: Flujo completo de pago con criptomoneda
+
+**Área 9: Factory Pattern (2 pruebas)**
+- Test 9.1: Factory patrón - createPaymentMethod
+- Test 9.2: Factory patrón - Diferentes implementaciones
+
+#### 7.2) Evidencia de ejecución
 
 ```powershell
 .\mvnw test
@@ -173,7 +231,19 @@ Evidencia ejecutada:
 Resultado:
 
 - **BUILD SUCCESS**
-- **Tests run: 1, Failures: 0, Errors: 0, Skipped: 0**
+- **Tests run: 37, Failures: 0, Errors: 0, Skipped: 0**
+  - 1 test en ApplicationTest
+  - 36 tests en PaymentSystemTest
+
+Todas las pruebas pasaron exitosamente, validando:
+✅ Creación de objetos de pago mediante Factory Pattern
+✅ Validación de métodos de pago (tarjeta, PayPal, cripto)
+✅ Procesamiento de transacciones
+✅ Notificación de eventos mediante Observer Pattern
+✅ Descuento de inventario automático
+✅ Generación de facturas
+✅ Envío de notificaciones
+✅ Flujos completos de pago integrados
 
 ### 8) Observación sobre el diseño final
 
