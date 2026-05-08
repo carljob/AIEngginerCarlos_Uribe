@@ -1,6 +1,6 @@
 package eci.edu.byteProgramming.ejercicio.paper.util;
 
-public class CryptoFactory extends PaymentMethod {
+public class CryptoFactory extends PaymentMethod implements PaymentFactory {
     private String walletAddress;
     private String cryptoType;
     private String token;
@@ -19,6 +19,17 @@ public class CryptoFactory extends PaymentMethod {
     @Override
     public boolean validatePaymentMethod() {
         return validateWalletAddress() && validateBalance();
+    }
+
+    @Override
+    public PaymentMethod createPaymentMethod(double amount, String customerId, String description) {
+        setAmount(amount);
+        setCustomerId(customerId);
+        setDescription(description);
+        this.transactionID = generateTransactionIdWithPrefix(getPaymentMethod());
+        this.status = PaymentStatus.PENDING;
+        this.timestamp = new java.util.Date();
+        return this;
     }
     
     private boolean validateWalletAddress() {

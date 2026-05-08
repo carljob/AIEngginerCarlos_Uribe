@@ -1,6 +1,6 @@
 package eci.edu.byteProgramming.ejercicio.paper.util;
 
-public class CreditCardFactory extends PaymentMethod{
+public class CreditCardFactory extends PaymentMethod implements PaymentFactory{
     private String number;
     private String name;
     private String expirationDate;
@@ -21,6 +21,17 @@ public class CreditCardFactory extends PaymentMethod{
     @Override
     public boolean validatePaymentMethod() {
         return validateCardNumber() && validateCVV() && validateExpirationDate();
+    }
+
+    @Override
+    public PaymentMethod createPaymentMethod(double amount, String customerId, String description) {
+        setAmount(amount);
+        setCustomerId(customerId);
+        setDescription(description);
+        this.transactionID = generateTransactionIdWithPrefix(getPaymentMethod());
+        this.status = PaymentStatus.PENDING;
+        this.timestamp = new java.util.Date();
+        return this;
     }
     
     private boolean validateCardNumber() {
@@ -68,6 +79,9 @@ public class CreditCardFactory extends PaymentMethod{
     }
     
     private String determineCardType(String cardNumber) {
+        if (cardNumber == null || cardNumber.isEmpty()) {
+            return "UNKNOWN";
+        }
         if (cardNumber.startsWith("4")) return "VISA";
         if (cardNumber.startsWith("5")) return "MASTERCARD";
         if (cardNumber.startsWith("3")) return "AMEX";
@@ -75,6 +89,9 @@ public class CreditCardFactory extends PaymentMethod{
     }
     
     public String maskCardNumber() {
+        if (number == null || number.length() < 4) {
+            return "****";
+        }
         return "**** **** **** " + number.substring(number.length() - 4);
     }
     

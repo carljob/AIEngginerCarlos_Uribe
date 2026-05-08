@@ -11,7 +11,7 @@ public abstract class PaymentMethod implements ValidatePayment{
     protected PaymentStatus status;
     protected String description;
 
-    public PaymentMethod(double amount, String transactionID, String description) {
+    public PaymentMethod(double amount, String customerID, String description) {
         this.amount = amount;
         this.customerID = customerID;
         this.description = description;
@@ -51,6 +51,9 @@ public abstract class PaymentMethod implements ValidatePayment{
     public double setAmount(double amount){
         return this.amount = amount;
     }
+
+    public void setCustomerId(String customerID) { this.customerID = customerID; }
+    public void setDescription(String description) { this.description = description; }
 
     public double getAmount() { return amount; }
     public String getTransactionId() { return transactionID; }
